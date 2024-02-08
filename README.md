@@ -1,56 +1,27 @@
-import os
+### GGUF selector
 
-gguf_files = [file for file in os.listdir() if file.endswith('.gguf')]
+[<img src="https://raw.githubusercontent.com/calcuis/chatgpt-model-selector/master/callgg.gif" width="128" height="128">](https://github.com/calcuis/chatgpt-model-selector/blob/main/callgg.gif)
 
-if gguf_files:
-    print("GGUF file(s) available. Select which one to use:")
-    
-    for index, file_name in enumerate(gguf_files, start=1):
-        print(f"{index}. {file_name}")
+This package is a simple graphical user interface (GUI) application that uses the llama.cpp to interact with a chat model for generating responses.
 
-    choice = input(f"Enter your choice (1 to {len(gguf_files)}): ")
-    
-    try:
-        choice_index=int(choice)-1
-        selected_file=gguf_files[choice_index]
-        print(f"Model file: {selected_file} is selected!")
-        ModelPath=selected_file
+#### include the module in your code
+```
+from gguf_selector import connector
+```
 
-        from llama_core import Llama
-        llm = Llama(model_path=ModelPath)
+You could pull any (pre-trained model) GGUF file(s) inside the folder and it will automatically be detected by the program.
 
-        from tkinter import *
-        import tkinter.scrolledtext as st
+[<img src="https://raw.githubusercontent.com/calcuis/chatgpt-model-selector/master/demo.gif" width="350" height="280">](https://github.com/calcuis/chatgpt-model-selector/blob/main/demo.gif)
+[<img src="https://raw.githubusercontent.com/calcuis/chatgpt-model-selector/master/demo1.gif" width="350" height="280">](https://github.com/calcuis/chatgpt-model-selector/blob/main/demo1.gif)
 
-        root = Tk()
-        root.title("chatGPT")
-        root.columnconfigure([0, 1, 2], minsize=150)
-        root.rowconfigure(0, weight=2)
-        root.rowconfigure(1, weight=1)
+#### sample model(s) available to download (try out)
+For general purpose
+https://huggingface.co/calcuis/chat/blob/main/chat.gguf
 
-        icon = PhotoImage(file = os.path.join(os.path.dirname(__file__), "logo.png"))
-        root.iconphoto(False, icon)
+For coding
+https://huggingface.co/calcuis/code_mini/blob/main/code.gguf
 
-        i = Entry()
-        o = st.ScrolledText()
+For health/medical advice
+https://huggingface.co/calcuis/medi_mini/blob/main/medi.gguf
 
-        def submit(i):
-            root.title("Processing...")
-            output = llm("Q: "+str(i.get()), max_tokens=2048, echo=True)
-            answer = output['choices'][0]['text']
-            print(answer)
-            o.insert(INSERT, answer+"\n\n")
-            i.delete(0, END)
-            root.title("chatGPT")
-
-        btn = Button(text = "Submit", command = lambda: submit(i))
-        i.grid(row=1, columnspan=2, sticky="nsew")
-        btn.grid(row=1, column=2, sticky="nsew")
-        o.grid(row=0, columnspan=3, sticky="nsew")
-        root.mainloop()
-
-    except (ValueError, IndexError):
-        print("Invalid choice. Please enter a valid number.")
-else:
-    print("No GGUF files are available in the current directory.")
-    input("--- Press ENTER To Exit ---")
+***those are all experimental models; no guarantee on quality
