@@ -1,6 +1,6 @@
 ### GGUF selector
 
-[<img src="https://raw.githubusercontent.com/calcuis/chatgpt-model-selector/master/callgg.gif" width="128" height="128">](https://github.com/calcuis/chatgpt-model-selector/blob/main/callgg.gif)
+[<img src="https://raw.githubusercontent.com/calcuis/gguf-selector/master/selector.gif" width="128" height="128">](https://github.com/calcuis/gguf-selector)
 
 This package is a simple graphical user interface (GUI) application that uses the llama.cpp to interact with a chat model for generating responses.
 
