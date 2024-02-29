@@ -1,6 +1,3 @@
-
-__version__="0.0.4"
-
 import os
 
 gguf_files = [file for file in os.listdir() if file.endswith('.gguf')]
@@ -31,14 +28,25 @@ if gguf_files:
         root.rowconfigure(0, weight=2)
         root.rowconfigure(1, weight=1)
 
+        icon = PhotoImage(file = os.path.join(os.path.dirname(__file__), "logo.png"))
+        root.iconphoto(False, icon)
+
         i = Entry()
         o = st.ScrolledText()
 
         def submit(i):
             root.title("Processing...")
-            output = llm("Q: "+str(i.get()), max_tokens=2048, echo=True)
-            answer = output['choices'][0]['text']
-            print(answer)
+            
+            print("Note: if you move the banner, it might show: (Not Responding); but still running in background actually; please be patient.")
+            from llama_core.rich.progress import Progress
+            with Progress(transient=True) as progress:
+                task = progress.add_task("Processing", total=None)
+                output = llm("Q: "+str(i.get()), max_tokens=2048, echo=True)
+                answer = output['choices'][0]['text']
+                token_info = output["usage"]["total_tokens"]
+                print("Raw input: "+str(i.get())+" (token used: "+str(token_info)+")\n")
+                print(answer)
+
             o.insert(INSERT, answer+"\n\n")
             i.delete(0, END)
             root.title("chatGPT")
