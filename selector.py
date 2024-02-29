@@ -37,7 +37,7 @@ if gguf_files:
         def submit(i):
             root.title("Processing...")
             
-            print("Note: the banner might show: (Not Responding); running in background still; please be patient.")
+            print("Note: it might show: (Not Responding); running in background still; please be patient.")
             from llama_core.rich.progress import Progress
             with Progress(transient=True) as progress:
                 task = progress.add_task("Processing", total=None)
