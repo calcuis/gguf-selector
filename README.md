@@ -1,7 +1,7 @@
 ### GGUF selector
 
 [<img src="https://raw.githubusercontent.com/calcuis/gguf-selector/master/selector.gif" width="128" height="128">](https://github.com/calcuis/gguf-selector)
-[![Static Badge](https://img.shields.io/badge/selector-0.0.4-pink?logo=github)](https://github.com/calcuis/gguf-selector/releases)
+[![Static Badge](https://img.shields.io/badge/selector-0.0.5-pink?logo=github)](https://github.com/calcuis/gguf-selector/releases)
 
 This package is a simple graphical user interface (GUI) application that uses the llama.cpp to interact with a chat model for generating responses.
 
